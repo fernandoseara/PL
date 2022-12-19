@@ -1,0 +1,55 @@
+Lapras @ Light Clay  
+Ability: Water Absorb  
+EVs: 140 HP / 92 Def / 252 SpA / 24 Spe  
+Modest Nature  
+- Hydro Pump  
+- Protect  
+- Thunder  
+- Freeze-Dry
+
+Regieleki @ Magnet  
+Ability: Transistor  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Modest Nature  
+- Thunderbolt  
+- Volt Switch  
+- Electroweb  
+- Protect  
+
+Metagross @ Weakness Policy  
+Ability: Clear Body  
+Shiny: Yes  
+EVs: 236 HP / 164 Atk / 4 Def / 4 SpD / 100 Spe  
+Adamant Nature  
+- Protect  
+- Iron Head  
+- Ice Punch  
+- Zen Headbutt  
+
+Urshifu-Gmax @ Choice Band  
+Ability: Unseen Fist  
+Gigantamax: Yes  
+EVs: 252 Atk / 4 Def / 252 Spe  
+Adamant Nature  
+- Wicked Blow  
+- Close Combat  
+- Sucker Punch  
+- Poison Jab  
+
+Ferrothorn @ Leftovers  
+Ability: Iron Barbs  
+EVs: 252 HP / 4 Def / 252 SpD  
+Impish Nature  
+- Body Press  
+- Iron Defense  
+- Leech Seed  
+- Protect  
+
+Incineroar @ Sitrus Berry  
+Ability: Intimidate  
+EVs: 252 HP / 192 Def / 64 SpD  
+Careful Nature  
+- Flare Blitz  
+- Darkest Lariat  
+- Parting Shot  
+- Fake Out  

@@ -59,9 +59,10 @@ extern int yydebug;
     POKEMON = 260,                 /* POKEMON  */
     OBJECT = 261,                  /* OBJECT  */
     ABILITY = 262,                 /* ABILITY  */
-    EVS = 263,                     /* EVS  */
-    NATURE = 264,                  /* NATURE  */
-    ATTACK = 265                   /* ATTACK  */
+    SHINY = 263,                   /* SHINY  */
+    EVS = 264,                     /* EVS  */
+    NATURE = 265,                  /* NATURE  */
+    ATTACK = 266                   /* ATTACK  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -75,9 +76,10 @@ extern int yydebug;
 #define POKEMON 260
 #define OBJECT 261
 #define ABILITY 262
-#define EVS 263
-#define NATURE 264
-#define ATTACK 265
+#define SHINY 263
+#define EVS 264
+#define NATURE 265
+#define ATTACK 266
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -87,7 +89,7 @@ union YYSTYPE
 
 	char* valString;
 
-#line 91 "pfinal.tab.h"
+#line 93 "pfinal.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

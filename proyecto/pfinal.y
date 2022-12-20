@@ -19,6 +19,7 @@ int countPokemon = 0;
 %token <valString> POKEMON
 %token <valString> OBJECT
 %token <valString> ABILITY
+%token <valString> SHINY
 %token <valString> EVS
 %token <valString> NATURE
 %token <valString> ATTACK
@@ -26,19 +27,23 @@ int countPokemon = 0;
 
 %%
 S	
-	: pokemon {printf("El equipo esta bien formado\n");}
+	: pokemon {if(countPokemon == 0){yyerror("Los datos del pokemon no pueden estar vacios");exit(0);} else {printf("El equipo esta bien formado\n");}}
 	;
 pokemon
-	: pokemon POKEMON ARROBA OBJECT ABILITY spread {countAttacks++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
-	| /* empty */ {yyerror("Los datos del pokemon no pueden estar vacios"); exit(0);}
+	: pokemon POKEMON ARROBA OBJECT ABILITY shiny spread {countPokemon++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
+	| pokemon EOL {countAttacks = 0;}
+	| /* empty */ 
 	;
 spread
 	: EVS NATURE attacks
 	;
 attacks
-	: ATTACK attacks {countAttacks++; if(countAttacks > 4){yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}}
+	: ATTACK attacks {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon);yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}}
 	| 
 	;
+shiny
+	: SHINY
+	| 
 
 
 %%

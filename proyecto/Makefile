@@ -1,5 +1,5 @@
 FUENTE = pfinal
-PRUEBA = pruebas/equipo1.txt
+PRUEBA = pruebas/prueba1.txt
 LIB = lfl
 
 all: compile run

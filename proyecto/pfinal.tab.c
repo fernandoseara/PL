@@ -115,14 +115,16 @@ enum yysymbol_kind_t
   YYSYMBOL_POKEMON = 5,                    /* POKEMON  */
   YYSYMBOL_OBJECT = 6,                     /* OBJECT  */
   YYSYMBOL_ABILITY = 7,                    /* ABILITY  */
-  YYSYMBOL_EVS = 8,                        /* EVS  */
-  YYSYMBOL_NATURE = 9,                     /* NATURE  */
-  YYSYMBOL_ATTACK = 10,                    /* ATTACK  */
-  YYSYMBOL_YYACCEPT = 11,                  /* $accept  */
-  YYSYMBOL_S = 12,                         /* S  */
-  YYSYMBOL_pokemon = 13,                   /* pokemon  */
-  YYSYMBOL_spread = 14,                    /* spread  */
-  YYSYMBOL_attacks = 15                    /* attacks  */
+  YYSYMBOL_SHINY = 8,                      /* SHINY  */
+  YYSYMBOL_EVS = 9,                        /* EVS  */
+  YYSYMBOL_NATURE = 10,                    /* NATURE  */
+  YYSYMBOL_ATTACK = 11,                    /* ATTACK  */
+  YYSYMBOL_YYACCEPT = 12,                  /* $accept  */
+  YYSYMBOL_S = 13,                         /* S  */
+  YYSYMBOL_pokemon = 14,                   /* pokemon  */
+  YYSYMBOL_spread = 15,                    /* spread  */
+  YYSYMBOL_attacks = 16,                   /* attacks  */
+  YYSYMBOL_shiny = 17                      /* shiny  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -448,21 +450,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  5
+#define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   11
+#define YYLAST   13
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  11
+#define YYNTOKENS  12
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  7
+#define YYNRULES  10
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  14
+#define YYNSTATES  17
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   265
+#define YYMAXUTOK   266
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -502,14 +504,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10
+       5,     6,     7,     8,     9,    10,    11
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    29,    29,    32,    33,    36,    39,    40
+       0,    30,    30,    33,    34,    35,    38,    41,    42,    45,
+      46
 };
 #endif
 
@@ -526,8 +529,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "EOL", "ARROBA",
-  "POKEMON", "OBJECT", "ABILITY", "EVS", "NATURE", "ATTACK", "$accept",
-  "S", "pokemon", "spread", "attacks", YY_NULLPTR
+  "POKEMON", "OBJECT", "ABILITY", "SHINY", "EVS", "NATURE", "ATTACK",
+  "$accept", "S", "pokemon", "spread", "attacks", "shiny", YY_NULLPTR
 };
 
 static const char *
@@ -551,8 +554,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -5,    -3,     2,    -7,    -2,    -7,    -4,    -1,     0,    -7,
-       1,     1,    -7,    -7
+      -7,     1,    -3,    -7,    -7,    -1,    -2,     0,     2,    -7,
+      -4,     3,    -7,    -5,    -5,    -7,    -7
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -560,20 +563,20 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       4,     0,     0,     2,     0,     1,     0,     0,     0,     3,
-       7,     7,     5,     6
+       5,     0,     2,     1,     4,     0,     0,     0,    10,     9,
+       0,     0,     3,     8,     8,     6,     7
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,    -7,    -7,    -6
+      -7,    -7,    -7,    -7,    -6,    -7
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     3,     9,    12
+       0,     1,     2,    12,    15,    10
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -581,34 +584,36 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     4,     5,     7,     6,    13,     0,     8,     0,    10,
-       0,    11
+       4,     3,     5,     6,     7,    11,    14,     8,    16,     0,
+       9,     0,     0,    13
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,     4,     0,     7,     6,    11,    -1,     8,    -1,     9,
-      -1,    10
+       3,     0,     5,     4,     6,     9,    11,     7,    14,    -1,
+       8,    -1,    -1,    10
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     5,    12,    13,     4,     0,     6,     7,     8,    14,
-       9,    10,    15,    15
+       0,    13,    14,     0,     3,     5,     4,     6,     7,     8,
+      17,     9,    15,    10,    11,    16,    16
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    11,    12,    13,    13,    14,    15,    15
+       0,    12,    13,    14,    14,    14,    15,    16,    16,    17,
+      17
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     5,     0,     3,     2,     0
+       0,     2,     1,     7,     2,     0,     3,     2,     0,     1,
+       0
 };
 
 
@@ -1072,31 +1077,31 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* S: pokemon  */
-#line 29 "pfinal.y"
-                  {printf("El equipo esta bien formado\n");}
-#line 1078 "pfinal.tab.c"
+#line 30 "pfinal.y"
+                  {if(countPokemon == 0){yyerror("Los datos del pokemon no pueden estar vacios");exit(0);} else {printf("El equipo esta bien formado\n");}}
+#line 1083 "pfinal.tab.c"
     break;
 
-  case 3: /* pokemon: POKEMON ARROBA OBJECT ABILITY spread  */
-#line 32 "pfinal.y"
-                                               {countAttacks++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
-#line 1084 "pfinal.tab.c"
-    break;
-
-  case 4: /* pokemon: %empty  */
+  case 3: /* pokemon: pokemon POKEMON ARROBA OBJECT ABILITY shiny spread  */
 #line 33 "pfinal.y"
-                      {yyerror("Los datos del pokemon no pueden estar vacios"); exit(0);}
-#line 1090 "pfinal.tab.c"
+                                                             {countPokemon++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
+#line 1089 "pfinal.tab.c"
     break;
 
-  case 6: /* attacks: ATTACK attacks  */
-#line 39 "pfinal.y"
-                         {countAttacks++; if(countAttacks > 4){yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}}
-#line 1096 "pfinal.tab.c"
+  case 4: /* pokemon: pokemon EOL  */
+#line 34 "pfinal.y"
+                      {countAttacks = 0;}
+#line 1095 "pfinal.tab.c"
+    break;
+
+  case 7: /* attacks: ATTACK attacks  */
+#line 41 "pfinal.y"
+                         {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon);yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}}
+#line 1101 "pfinal.tab.c"
     break;
 
 
-#line 1100 "pfinal.tab.c"
+#line 1105 "pfinal.tab.c"
 
       default: break;
     }
@@ -1289,7 +1294,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 44 "pfinal.y"
+#line 49 "pfinal.y"
 
 int main(int argc, char *argv[]) {
 extern FILE *yyin;

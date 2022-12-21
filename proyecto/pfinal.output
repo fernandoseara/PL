@@ -1,0 +1,534 @@
+Gramática
+
+    0 $accept: S $end
+
+    1 S: pokemon
+
+    2 pokemon: pokemon name object ability shiny spread nature attacks
+    3        | pokemon EOL
+    4        | ε
+
+    5 name: POKEMON eol
+    6     | ε
+
+    7 ability: ABILITY EOL
+    8        | ε
+
+    9 spread: EVS hp atk def spa spd spe EOL
+
+   10 hp: HP DIVISION
+   11   | ε
+
+   12 atk: ATK DIVISION
+   13    | ε
+
+   14 def: DEF DIVISION
+   15    | ε
+
+   16 spa: SPA DIVISION
+   17    | ε
+
+   18 spd: SPD DIVISION
+   19    | ε
+
+   20 spe: SPE
+   21    | ε
+
+   22 nature: NATURE EOL
+   23       | ε
+
+   24 attacks: attacks ATTACK EOL
+   25        | ε
+
+   26 object: ARROBA OBJECT EOL
+   27       | ε
+
+   28 shiny: SHINY EOL
+   29      | ε
+
+   30 eol: EOL
+   31    | ε
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256)
+    EOL <valString> (258) 3 7 9 22 24 26 28 30
+    ARROBA <valString> (259) 26
+    POKEMON <valString> (260) 5
+    OBJECT <valString> (261) 26
+    ABILITY <valString> (262) 7
+    SHINY <valString> (263) 28
+    EVS <valString> (264) 9
+    DIVISION <valString> (265) 10 12 14 16 18
+    HP <valString> (266) 10
+    ATK <valString> (267) 12
+    DEF <valString> (268) 14
+    SPA <valString> (269) 16
+    SPD <valString> (270) 18
+    SPE <valString> (271) 20
+    NATURE <valString> (272) 22
+    ATTACK <valString> (273) 24
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (19)
+        on left: 0
+    S (20)
+        on left: 1
+        on right: 0
+    pokemon (21)
+        on left: 2 3 4
+        on right: 1 2 3
+    name (22)
+        on left: 5 6
+        on right: 2
+    ability (23)
+        on left: 7 8
+        on right: 2
+    spread (24)
+        on left: 9
+        on right: 2
+    hp (25)
+        on left: 10 11
+        on right: 9
+    atk (26)
+        on left: 12 13
+        on right: 9
+    def (27)
+        on left: 14 15
+        on right: 9
+    spa (28)
+        on left: 16 17
+        on right: 9
+    spd (29)
+        on left: 18 19
+        on right: 9
+    spe (30)
+        on left: 20 21
+        on right: 9
+    nature (31)
+        on left: 22 23
+        on right: 2
+    attacks (32)
+        on left: 24 25
+        on right: 2 24
+    object (33)
+        on left: 26 27
+        on right: 2
+    shiny (34)
+        on left: 28 29
+        on right: 2
+    eol (35)
+        on left: 30 31
+        on right: 5
+
+
+Estado 0
+
+    0 $accept: • S $end
+    1 S: • pokemon
+    2 pokemon: • pokemon name object ability shiny spread nature attacks
+    3        | • pokemon EOL
+    4        | ε •
+
+    $default  reduce usando la regla 4 (pokemon)
+
+    S        ir al estado 1
+    pokemon  ir al estado 2
+
+
+Estado 1
+
+    0 $accept: S • $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 2
+
+    1 S: pokemon •  [$end]
+    2 pokemon: pokemon • name object ability shiny spread nature attacks
+    3        | pokemon • EOL
+    5 name: • POKEMON eol
+    6     | ε •  [ARROBA, ABILITY, SHINY, EVS]
+
+    EOL      desplazar e ir al estado 4
+    POKEMON  desplazar e ir al estado 5
+
+    $end      reduce usando la regla 1 (S)
+    $default  reduce usando la regla 6 (name)
+
+    name  ir al estado 6
+
+
+Estado 3
+
+    0 $accept: S $end •
+
+    $default  aceptar
+
+
+Estado 4
+
+    3 pokemon: pokemon EOL •
+
+    $default  reduce usando la regla 3 (pokemon)
+
+
+Estado 5
+
+    5 name: POKEMON • eol
+   30 eol: • EOL
+   31    | ε •  [ARROBA, ABILITY, SHINY, EVS]
+
+    EOL  desplazar e ir al estado 7
+
+    $default  reduce usando la regla 31 (eol)
+
+    eol  ir al estado 8
+
+
+Estado 6
+
+    2 pokemon: pokemon name • object ability shiny spread nature attacks
+   26 object: • ARROBA OBJECT EOL
+   27       | ε •  [ABILITY, SHINY, EVS]
+
+    ARROBA  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 27 (object)
+
+    object  ir al estado 10
+
+
+Estado 7
+
+   30 eol: EOL •
+
+    $default  reduce usando la regla 30 (eol)
+
+
+Estado 8
+
+    5 name: POKEMON eol •
+
+    $default  reduce usando la regla 5 (name)
+
+
+Estado 9
+
+   26 object: ARROBA • OBJECT EOL
+
+    OBJECT  desplazar e ir al estado 11
+
+
+Estado 10
+
+    2 pokemon: pokemon name object • ability shiny spread nature attacks
+    7 ability: • ABILITY EOL
+    8        | ε •  [SHINY, EVS]
+
+    ABILITY  desplazar e ir al estado 12
+
+    $default  reduce usando la regla 8 (ability)
+
+    ability  ir al estado 13
+
+
+Estado 11
+
+   26 object: ARROBA OBJECT • EOL
+
+    EOL  desplazar e ir al estado 14
+
+
+Estado 12
+
+    7 ability: ABILITY • EOL
+
+    EOL  desplazar e ir al estado 15
+
+
+Estado 13
+
+    2 pokemon: pokemon name object ability • shiny spread nature attacks
+   28 shiny: • SHINY EOL
+   29      | ε •  [EVS]
+
+    SHINY  desplazar e ir al estado 16
+
+    $default  reduce usando la regla 29 (shiny)
+
+    shiny  ir al estado 17
+
+
+Estado 14
+
+   26 object: ARROBA OBJECT EOL •
+
+    $default  reduce usando la regla 26 (object)
+
+
+Estado 15
+
+    7 ability: ABILITY EOL •
+
+    $default  reduce usando la regla 7 (ability)
+
+
+Estado 16
+
+   28 shiny: SHINY • EOL
+
+    EOL  desplazar e ir al estado 18
+
+
+Estado 17
+
+    2 pokemon: pokemon name object ability shiny • spread nature attacks
+    9 spread: • EVS hp atk def spa spd spe EOL
+
+    EVS  desplazar e ir al estado 19
+
+    spread  ir al estado 20
+
+
+Estado 18
+
+   28 shiny: SHINY EOL •
+
+    $default  reduce usando la regla 28 (shiny)
+
+
+Estado 19
+
+    9 spread: EVS • hp atk def spa spd spe EOL
+   10 hp: • HP DIVISION
+   11   | ε •  [EOL, ATK, DEF, SPA, SPD, SPE]
+
+    HP  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 11 (hp)
+
+    hp  ir al estado 22
+
+
+Estado 20
+
+    2 pokemon: pokemon name object ability shiny spread • nature attacks
+   22 nature: • NATURE EOL
+   23       | ε •  [$end, EOL, ARROBA, POKEMON, ABILITY, SHINY, EVS, ATTACK]
+
+    NATURE  desplazar e ir al estado 23
+
+    $default  reduce usando la regla 23 (nature)
+
+    nature  ir al estado 24
+
+
+Estado 21
+
+   10 hp: HP • DIVISION
+
+    DIVISION  desplazar e ir al estado 25
+
+
+Estado 22
+
+    9 spread: EVS hp • atk def spa spd spe EOL
+   12 atk: • ATK DIVISION
+   13    | ε •  [EOL, DEF, SPA, SPD, SPE]
+
+    ATK  desplazar e ir al estado 26
+
+    $default  reduce usando la regla 13 (atk)
+
+    atk  ir al estado 27
+
+
+Estado 23
+
+   22 nature: NATURE • EOL
+
+    EOL  desplazar e ir al estado 28
+
+
+Estado 24
+
+    2 pokemon: pokemon name object ability shiny spread nature • attacks
+   24 attacks: • attacks ATTACK EOL
+   25        | ε •
+
+    $default  reduce usando la regla 25 (attacks)
+
+    attacks  ir al estado 29
+
+
+Estado 25
+
+   10 hp: HP DIVISION •
+
+    $default  reduce usando la regla 10 (hp)
+
+
+Estado 26
+
+   12 atk: ATK • DIVISION
+
+    DIVISION  desplazar e ir al estado 30
+
+
+Estado 27
+
+    9 spread: EVS hp atk • def spa spd spe EOL
+   14 def: • DEF DIVISION
+   15    | ε •  [EOL, SPA, SPD, SPE]
+
+    DEF  desplazar e ir al estado 31
+
+    $default  reduce usando la regla 15 (def)
+
+    def  ir al estado 32
+
+
+Estado 28
+
+   22 nature: NATURE EOL •
+
+    $default  reduce usando la regla 22 (nature)
+
+
+Estado 29
+
+    2 pokemon: pokemon name object ability shiny spread nature attacks •  [$end, EOL, ARROBA, POKEMON, ABILITY, SHINY, EVS]
+   24 attacks: attacks • ATTACK EOL
+
+    ATTACK  desplazar e ir al estado 33
+
+    $default  reduce usando la regla 2 (pokemon)
+
+
+Estado 30
+
+   12 atk: ATK DIVISION •
+
+    $default  reduce usando la regla 12 (atk)
+
+
+Estado 31
+
+   14 def: DEF • DIVISION
+
+    DIVISION  desplazar e ir al estado 34
+
+
+Estado 32
+
+    9 spread: EVS hp atk def • spa spd spe EOL
+   16 spa: • SPA DIVISION
+   17    | ε •  [EOL, SPD, SPE]
+
+    SPA  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 17 (spa)
+
+    spa  ir al estado 36
+
+
+Estado 33
+
+   24 attacks: attacks ATTACK • EOL
+
+    EOL  desplazar e ir al estado 37
+
+
+Estado 34
+
+   14 def: DEF DIVISION •
+
+    $default  reduce usando la regla 14 (def)
+
+
+Estado 35
+
+   16 spa: SPA • DIVISION
+
+    DIVISION  desplazar e ir al estado 38
+
+
+Estado 36
+
+    9 spread: EVS hp atk def spa • spd spe EOL
+   18 spd: • SPD DIVISION
+   19    | ε •  [EOL, SPE]
+
+    SPD  desplazar e ir al estado 39
+
+    $default  reduce usando la regla 19 (spd)
+
+    spd  ir al estado 40
+
+
+Estado 37
+
+   24 attacks: attacks ATTACK EOL •
+
+    $default  reduce usando la regla 24 (attacks)
+
+
+Estado 38
+
+   16 spa: SPA DIVISION •
+
+    $default  reduce usando la regla 16 (spa)
+
+
+Estado 39
+
+   18 spd: SPD • DIVISION
+
+    DIVISION  desplazar e ir al estado 41
+
+
+Estado 40
+
+    9 spread: EVS hp atk def spa spd • spe EOL
+   20 spe: • SPE
+   21    | ε •  [EOL]
+
+    SPE  desplazar e ir al estado 42
+
+    $default  reduce usando la regla 21 (spe)
+
+    spe  ir al estado 43
+
+
+Estado 41
+
+   18 spd: SPD DIVISION •
+
+    $default  reduce usando la regla 18 (spd)
+
+
+Estado 42
+
+   20 spe: SPE •
+
+    $default  reduce usando la regla 20 (spe)
+
+
+Estado 43
+
+    9 spread: EVS hp atk def spa spd spe • EOL
+
+    EOL  desplazar e ir al estado 44
+
+
+Estado 44
+
+    9 spread: EVS hp atk def spa spd spe EOL •
+
+    $default  reduce usando la regla 9 (spread)

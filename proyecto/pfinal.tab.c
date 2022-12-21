@@ -72,14 +72,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 extern int yylex();
 extern int yylineno;
+
 void yyerror (char const *);
+bool checkRepeated (char *array[], char *newName);
+void resetArray (char *array[]);
+void resetIntArray (int array[]);
+void checkEVs(char *ev, int array[], int flag);
+
 int countAttacks = 0;
 int countPokemon = 0;
 
-#line 83 "pfinal.tab.c"
+char* namesPokemon[6];
+char* namesAttacks[4];
+
+int evs[6];
+
+char* namesObjects[6];
+
+
+#line 98 "pfinal.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -117,14 +132,32 @@ enum yysymbol_kind_t
   YYSYMBOL_ABILITY = 7,                    /* ABILITY  */
   YYSYMBOL_SHINY = 8,                      /* SHINY  */
   YYSYMBOL_EVS = 9,                        /* EVS  */
-  YYSYMBOL_NATURE = 10,                    /* NATURE  */
-  YYSYMBOL_ATTACK = 11,                    /* ATTACK  */
-  YYSYMBOL_YYACCEPT = 12,                  /* $accept  */
-  YYSYMBOL_S = 13,                         /* S  */
-  YYSYMBOL_pokemon = 14,                   /* pokemon  */
-  YYSYMBOL_spread = 15,                    /* spread  */
-  YYSYMBOL_attacks = 16,                   /* attacks  */
-  YYSYMBOL_shiny = 17                      /* shiny  */
+  YYSYMBOL_DIVISION = 10,                  /* DIVISION  */
+  YYSYMBOL_HP = 11,                        /* HP  */
+  YYSYMBOL_ATK = 12,                       /* ATK  */
+  YYSYMBOL_DEF = 13,                       /* DEF  */
+  YYSYMBOL_SPA = 14,                       /* SPA  */
+  YYSYMBOL_SPD = 15,                       /* SPD  */
+  YYSYMBOL_SPE = 16,                       /* SPE  */
+  YYSYMBOL_NATURE = 17,                    /* NATURE  */
+  YYSYMBOL_ATTACK = 18,                    /* ATTACK  */
+  YYSYMBOL_YYACCEPT = 19,                  /* $accept  */
+  YYSYMBOL_S = 20,                         /* S  */
+  YYSYMBOL_pokemon = 21,                   /* pokemon  */
+  YYSYMBOL_name = 22,                      /* name  */
+  YYSYMBOL_ability = 23,                   /* ability  */
+  YYSYMBOL_spread = 24,                    /* spread  */
+  YYSYMBOL_hp = 25,                        /* hp  */
+  YYSYMBOL_atk = 26,                       /* atk  */
+  YYSYMBOL_def = 27,                       /* def  */
+  YYSYMBOL_spa = 28,                       /* spa  */
+  YYSYMBOL_spd = 29,                       /* spd  */
+  YYSYMBOL_spe = 30,                       /* spe  */
+  YYSYMBOL_nature = 31,                    /* nature  */
+  YYSYMBOL_attacks = 32,                   /* attacks  */
+  YYSYMBOL_object = 33,                    /* object  */
+  YYSYMBOL_shiny = 34,                     /* shiny  */
+  YYSYMBOL_eol = 35                        /* eol  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -452,19 +485,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   13
+#define YYLAST   32
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  12
+#define YYNTOKENS  19
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  6
+#define YYNNTS  17
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  10
+#define YYNRULES  32
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  17
+#define YYNSTATES  45
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   266
+#define YYMAXUTOK   273
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -504,15 +537,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    30,    30,    33,    34,    35,    38,    41,    42,    45,
-      46
+       0,    52,    52,    55,    56,    58,    61,    63,    65,    66,
+      69,    72,    73,    76,    77,    80,    81,    84,    85,    88,
+      89,    92,    93,    96,    97,    99,   102,   105,   106,   109,
+     110,   113,   114
 };
 #endif
 
@@ -529,8 +565,10 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "EOL", "ARROBA",
-  "POKEMON", "OBJECT", "ABILITY", "SHINY", "EVS", "NATURE", "ATTACK",
-  "$accept", "S", "pokemon", "spread", "attacks", "shiny", YY_NULLPTR
+  "POKEMON", "OBJECT", "ABILITY", "SHINY", "EVS", "DIVISION", "HP", "ATK",
+  "DEF", "SPA", "SPD", "SPE", "NATURE", "ATTACK", "$accept", "S",
+  "pokemon", "name", "ability", "spread", "hp", "atk", "def", "spa", "spd",
+  "spe", "nature", "attacks", "object", "shiny", "eol", YY_NULLPTR
 };
 
 static const char *
@@ -540,12 +578,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-7)
+#define YYPACT_NINF (-9)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-3)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -554,8 +592,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -7,     1,    -3,    -7,    -7,    -1,    -2,     0,     2,    -7,
-      -4,     3,    -7,    -5,    -5,    -7,    -7
+      -9,     1,     0,    -9,    -9,    -1,     2,    -9,    -9,    -2,
+       3,     4,     5,     6,    -9,    -9,     8,     7,    -9,     9,
+      -8,    11,    10,    12,    -9,    -9,    13,    14,    -9,    -6,
+      -9,    15,    16,    21,    -9,    18,    17,    -9,    -9,    19,
+      -3,    -9,    -9,    23,    -9
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -563,20 +604,25 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       5,     0,     2,     1,     4,     0,     0,     0,    10,     9,
-       0,     0,     3,     8,     8,     6,     7
+       5,     0,     7,     1,     4,    32,    28,    31,     6,     0,
+       9,     0,     0,    30,    27,     8,     0,     0,    29,    12,
+      24,     0,    14,     0,    26,    11,     0,    16,    23,     3,
+      13,     0,    18,     0,    15,     0,    20,    25,    17,     0,
+      22,    19,    21,     0,    10
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,    -7,    -7,    -6,    -7
+      -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,
+      -9,    -9,    -9,    -9,    -9,    -9,    -9
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,     2,    12,    15,    10
+       0,     1,     2,     6,    13,    20,    22,    27,    32,    36,
+      40,    43,    24,    29,    10,    17,     8
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -584,36 +630,47 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       4,     3,     5,     6,     7,    11,    14,     8,    16,     0,
-       9,     0,     0,    13
+      -2,     3,     7,     4,    11,     5,     9,    14,    15,    23,
+      12,    18,    33,    42,    16,    28,    19,     0,     0,     0,
+      21,    25,    26,    30,    37,    34,    44,    31,    38,    41,
+      35,     0,    39
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     0,     5,     4,     6,     9,    11,     7,    14,    -1,
-       8,    -1,    -1,    10
+       0,     0,     3,     3,     6,     5,     4,     3,     3,    17,
+       7,     3,    18,    16,     8,     3,     9,    -1,    -1,    -1,
+      11,    10,    12,    10,     3,    10,     3,    13,    10,    10,
+      14,    -1,    15
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    13,    14,     0,     3,     5,     4,     6,     7,     8,
-      17,     9,    15,    10,    11,    16,    16
+       0,    20,    21,     0,     3,     5,    22,     3,    35,     4,
+      33,     6,     7,    23,     3,     3,     8,    34,     3,     9,
+      24,    11,    25,    17,    31,    10,    12,    26,     3,    32,
+      10,    13,    27,    18,    10,    14,    28,     3,    10,    15,
+      29,    10,    16,    30,     3
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    12,    13,    14,    14,    14,    15,    16,    16,    17,
-      17
+       0,    19,    20,    21,    21,    21,    22,    22,    23,    23,
+      24,    25,    25,    26,    26,    27,    27,    28,    28,    29,
+      29,    30,    30,    31,    31,    32,    32,    33,    33,    34,
+      34,    35,    35
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     7,     2,     0,     3,     2,     0,     1,
-       0
+       0,     2,     1,     8,     2,     0,     2,     0,     2,     0,
+       8,     2,     0,     2,     0,     2,     0,     2,     0,     2,
+       0,     1,     0,     2,     0,     3,     0,     3,     0,     2,
+       0,     1,     0
 };
 
 
@@ -1077,31 +1134,131 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* S: pokemon  */
-#line 30 "pfinal.y"
-                  {if(countPokemon == 0){yyerror("Los datos del pokemon no pueden estar vacios");exit(0);} else {printf("El equipo esta bien formado\n");}}
-#line 1083 "pfinal.tab.c"
-    break;
-
-  case 3: /* pokemon: pokemon POKEMON ARROBA OBJECT ABILITY shiny spread  */
-#line 33 "pfinal.y"
-                                                             {countPokemon++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
-#line 1089 "pfinal.tab.c"
+#line 52 "pfinal.y"
+                  {if(countPokemon == 0){yyerror("Debe haber como minimo un pokemon en el equipo");exit(0);} else {printf("El equipo esta bien formado\n");}}
+#line 1140 "pfinal.tab.c"
     break;
 
   case 4: /* pokemon: pokemon EOL  */
-#line 34 "pfinal.y"
-                      {countAttacks = 0;}
-#line 1095 "pfinal.tab.c"
+#line 56 "pfinal.y"
+                      {if(countAttacks == 0){yyerror("El pokemon debe tener como minimo un ataque");exit(0);}
+															countAttacks = 0;resetArray(namesAttacks); resetIntArray(evs);}
+#line 1147 "pfinal.tab.c"
     break;
 
-  case 7: /* attacks: ATTACK attacks  */
-#line 41 "pfinal.y"
-                         {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon);yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}}
-#line 1101 "pfinal.tab.c"
+  case 6: /* name: POKEMON eol  */
+#line 61 "pfinal.y"
+                      {if(!checkRepeated(namesPokemon, (yyvsp[-1].valString))){yyerror("No esta permitido llevar dos pokemon iguales en un equipo"); exit(0);}
+				countPokemon++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
+#line 1154 "pfinal.tab.c"
+    break;
+
+  case 7: /* name: %empty  */
+#line 63 "pfinal.y"
+          {yyerror("el nombre del pokemon no puede estar vacio"); exit(0);}
+#line 1160 "pfinal.tab.c"
+    break;
+
+  case 9: /* ability: %empty  */
+#line 66 "pfinal.y"
+          {yyerror("Se debe especificar la habilidad del pokemon");}
+#line 1166 "pfinal.tab.c"
+    break;
+
+  case 11: /* hp: HP DIVISION  */
+#line 72 "pfinal.y"
+                  {checkEVs((yyvsp[-1].valString), evs, 0);}
+#line 1172 "pfinal.tab.c"
+    break;
+
+  case 12: /* hp: %empty  */
+#line 73 "pfinal.y"
+      {yyerror("Faltan los EVs en HP");exit(0);}
+#line 1178 "pfinal.tab.c"
+    break;
+
+  case 13: /* atk: ATK DIVISION  */
+#line 76 "pfinal.y"
+                   {checkEVs((yyvsp[-1].valString), evs, 1);}
+#line 1184 "pfinal.tab.c"
+    break;
+
+  case 14: /* atk: %empty  */
+#line 77 "pfinal.y"
+      {yyerror("Faltan los EVs en Atk");exit(0);}
+#line 1190 "pfinal.tab.c"
+    break;
+
+  case 15: /* def: DEF DIVISION  */
+#line 80 "pfinal.y"
+                   {checkEVs((yyvsp[-1].valString), evs, 2);}
+#line 1196 "pfinal.tab.c"
+    break;
+
+  case 16: /* def: %empty  */
+#line 81 "pfinal.y"
+      {yyerror("Faltan los EVs en Def");exit(0);}
+#line 1202 "pfinal.tab.c"
+    break;
+
+  case 17: /* spa: SPA DIVISION  */
+#line 84 "pfinal.y"
+                   {checkEVs((yyvsp[-1].valString), evs, 3);}
+#line 1208 "pfinal.tab.c"
+    break;
+
+  case 18: /* spa: %empty  */
+#line 85 "pfinal.y"
+      {yyerror("Faltan los EVs en SpA");exit(0);}
+#line 1214 "pfinal.tab.c"
+    break;
+
+  case 19: /* spd: SPD DIVISION  */
+#line 88 "pfinal.y"
+                   {checkEVs((yyvsp[-1].valString), evs, 4);}
+#line 1220 "pfinal.tab.c"
+    break;
+
+  case 20: /* spd: %empty  */
+#line 89 "pfinal.y"
+      {yyerror("Faltan los EVs en SpD");exit(0);}
+#line 1226 "pfinal.tab.c"
+    break;
+
+  case 21: /* spe: SPE  */
+#line 92 "pfinal.y"
+          {checkEVs((yyvsp[0].valString), evs, 5);}
+#line 1232 "pfinal.tab.c"
+    break;
+
+  case 22: /* spe: %empty  */
+#line 93 "pfinal.y"
+      {yyerror("Faltan los EVs en Spe");exit(0);}
+#line 1238 "pfinal.tab.c"
+    break;
+
+  case 24: /* nature: %empty  */
+#line 97 "pfinal.y"
+          {yyerror("Se debe especificar la naturaleza del pokemon");}
+#line 1244 "pfinal.tab.c"
+    break;
+
+  case 25: /* attacks: attacks ATTACK EOL  */
+#line 99 "pfinal.y"
+                             {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon+1);
+					yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}
+					if(!checkRepeated(namesAttacks, (yyvsp[-1].valString))){yyerror("Un pokemon no puede tener dos veces el mismo ataque"); exit(0);}}
+#line 1252 "pfinal.tab.c"
+    break;
+
+  case 27: /* object: ARROBA OBJECT EOL  */
+#line 105 "pfinal.y"
+                            {;if(!checkRepeated(namesObjects, (yyvsp[-1].valString))){yyerror("No esta permitido llevar dos objetos iguales en un equipo"); exit(0);}}
+#line 1258 "pfinal.tab.c"
     break;
 
 
-#line 1105 "pfinal.tab.c"
+#line 1262 "pfinal.tab.c"
 
       default: break;
     }
@@ -1294,7 +1451,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 49 "pfinal.y"
+#line 118 "pfinal.y"
 
 int main(int argc, char *argv[]) {
 extern FILE *yyin;
@@ -1318,3 +1475,71 @@ extern FILE *yyin;
 	return 0;
 }
 void yyerror (char const *message) { fprintf (stderr, "Linea %d: %s \n", yylineno, message);}
+
+bool checkRepeated (char *array[], char *newName) {
+	int i = 0;
+	while (array[i] != NULL){
+		if(strcmp(array[i], newName) == 0){
+			printf("%s y %s estan repetidos\n", array[i], newName);
+			return false;
+		}
+		i++;
+	}
+	
+	array[i] = newName;
+	return true;
+}
+
+void resetArray (char *array[]){
+	int i = 0;
+	while(array[i] != NULL){
+		array[i] = '\0';
+		i++;
+	}
+}
+
+void resetIntArray (int array[]){
+   for(int i = 0; i < 6; i++){
+		array[i] = 0;
+	}
+}
+
+void checkEVs(char *ev, int array[], int flag){
+    int number = atoi(strtok(ev, " ")); 
+    if(number > 252){
+        yyerror("El numero mamximo de EVs en una caracteristica es 252");
+        exit(0);
+    }
+    switch(flag){
+        case 0:
+            evs[0] = number;
+        break;
+        case 1:
+            evs[1] = number;
+        break;
+        case 2:
+            evs[2] = number;
+        break;
+        case 3:
+            evs[3] = number;
+        break;
+        case 4:
+            evs[4] = number;
+        break;
+        case 5:
+            evs[5] = number;
+        break;
+        default:
+         printf("Invalid flag on function checkEVs\n");
+         exit(-1);
+        break;
+    }
+    int totalEVs = 0;
+    for(int i = 0; i < 6; i++){
+        totalEVs += evs[i];
+    }
+    if(totalEVs > 510){
+        yyerror("Los EVs totales no pueden superar 510");
+        exit(0);
+    }
+}

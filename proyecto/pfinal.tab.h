@@ -61,8 +61,15 @@ extern int yydebug;
     ABILITY = 262,                 /* ABILITY  */
     SHINY = 263,                   /* SHINY  */
     EVS = 264,                     /* EVS  */
-    NATURE = 265,                  /* NATURE  */
-    ATTACK = 266                   /* ATTACK  */
+    DIVISION = 265,                /* DIVISION  */
+    HP = 266,                      /* HP  */
+    ATK = 267,                     /* ATK  */
+    DEF = 268,                     /* DEF  */
+    SPA = 269,                     /* SPA  */
+    SPD = 270,                     /* SPD  */
+    SPE = 271,                     /* SPE  */
+    NATURE = 272,                  /* NATURE  */
+    ATTACK = 273                   /* ATTACK  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -78,18 +85,25 @@ extern int yydebug;
 #define ABILITY 262
 #define SHINY 263
 #define EVS 264
-#define NATURE 265
-#define ATTACK 266
+#define DIVISION 265
+#define HP 266
+#define ATK 267
+#define DEF 268
+#define SPA 269
+#define SPD 270
+#define SPE 271
+#define NATURE 272
+#define ATTACK 273
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "pfinal.y"
+#line 28 "pfinal.y"
 
 	char* valString;
 
-#line 93 "pfinal.tab.h"
+#line 107 "pfinal.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

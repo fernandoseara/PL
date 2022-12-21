@@ -1,5 +1,5 @@
-Lapras @ Light Clay  
-Ability: Water Absorb  
+Lapras
+Ability: Water Absorb
 EVs: 140 HP / 0 Atk / 92 Def / 252 SpA / 0 SpD / 24 Spe  
 Modest Nature  
 - Hydro Pump  
@@ -9,14 +9,14 @@ Modest Nature
 
 Regieleki @ Magnet  
 Ability: Transistor  
-EVs: 0 HP / 0 Atk / 0 Def / 252 SpA / 4 SpD / 252 Spe  
+EVs: 0 HP / 0 Atk / 0 Def / 252 SpA / 4 SpD / 252 Spe       
 Modest Nature  
 - Thunderbolt  
 - Volt Switch  
 - Electroweb  
 - Protect  
 
-Metagross @ Weakness Policy  
+Metagross @ Weakness Policy
 Ability: Clear Body
 Shiny: Yes   
 EVs: 236 HP / 164 Atk / 4 Def / 0 SpA / 4 SpD / 100 Spe  
@@ -25,9 +25,8 @@ Adamant Nature
 - Iron Head  
 - Ice Punch  
 - Zen Headbutt
-- Zen Headbutt  
 
-Urshifu-Gmax @ Choice Band  
+Urshifu-Gmax @ Choice Band
 Ability: Unseen Fist  
 EVs: 0 HP / 252 Atk / 4 Def / 0 SpA / 0 SpD / 252 Spe  
 Adamant Nature  
@@ -52,4 +51,4 @@ Careful Nature
 - Flare Blitz  
 - Darkest Lariat  
 - Parting Shot  
-- Fake Out 
+- Surf 

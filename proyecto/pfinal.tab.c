@@ -578,7 +578,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-9)
+#define YYPACT_NINF (-17)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -592,11 +592,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -9,     1,     0,    -9,    -9,    -1,     2,    -9,    -9,    -2,
-       3,     4,     5,     6,    -9,    -9,     8,     7,    -9,     9,
-      -8,    11,    10,    12,    -9,    -9,    13,    14,    -9,    -6,
-      -9,    15,    16,    21,    -9,    18,    17,    -9,    -9,    19,
-      -3,    -9,    -9,    23,    -9
+     -17,     1,     0,   -17,   -17,    -1,     2,   -17,   -17,    -2,
+       3,     4,     5,     6,   -17,   -17,     8,     7,   -17,     9,
+      -8,    11,    10,    12,   -17,   -17,    13,    14,   -17,    -6,
+     -17,    15,    16,    -1,   -17,    18,    17,   -17,   -17,    19,
+      -3,   -17,   -17,    21,   -17
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -607,15 +607,15 @@ static const yytype_int8 yydefact[] =
        5,     0,     7,     1,     4,    32,    28,    31,     6,     0,
        9,     0,     0,    30,    27,     8,     0,     0,    29,    12,
       24,     0,    14,     0,    26,    11,     0,    16,    23,     3,
-      13,     0,    18,     0,    15,     0,    20,    25,    17,     0,
+      13,     0,    18,    32,    15,     0,    20,    25,    17,     0,
       22,    19,    21,     0,    10
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,
-      -9,    -9,    -9,    -9,    -9,    -9,    -9
+     -17,   -17,   -17,   -17,   -17,   -17,   -17,   -17,   -17,   -17,
+     -17,   -17,   -17,   -17,   -17,   -17,   -16
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -631,16 +631,16 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_int8 yytable[] =
 {
       -2,     3,     7,     4,    11,     5,     9,    14,    15,    23,
-      12,    18,    33,    42,    16,    28,    19,     0,     0,     0,
-      21,    25,    26,    30,    37,    34,    44,    31,    38,    41,
+      12,    18,    33,    42,    16,    28,    19,    37,     0,     0,
+      21,    25,    26,    30,    44,    34,     0,    31,    38,    41,
       35,     0,    39
 };
 
 static const yytype_int8 yycheck[] =
 {
        0,     0,     3,     3,     6,     5,     4,     3,     3,    17,
-       7,     3,    18,    16,     8,     3,     9,    -1,    -1,    -1,
-      11,    10,    12,    10,     3,    10,     3,    13,    10,    10,
+       7,     3,    18,    16,     8,     3,     9,    33,    -1,    -1,
+      11,    10,    12,    10,     3,    10,    -1,    13,    10,    10,
       14,    -1,    15
 };
 
@@ -651,7 +651,7 @@ static const yytype_int8 yystos[] =
        0,    20,    21,     0,     3,     5,    22,     3,    35,     4,
       33,     6,     7,    23,     3,     3,     8,    34,     3,     9,
       24,    11,    25,    17,    31,    10,    12,    26,     3,    32,
-      10,    13,    27,    18,    10,    14,    28,     3,    10,    15,
+      10,    13,    27,    18,    10,    14,    28,    35,    10,    15,
       29,    10,    16,    30,     3
 };
 
@@ -1243,7 +1243,7 @@ yyreduce:
 #line 1244 "pfinal.tab.c"
     break;
 
-  case 25: /* attacks: attacks ATTACK EOL  */
+  case 25: /* attacks: attacks ATTACK eol  */
 #line 99 "pfinal.y"
                              {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon+1);
 					yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}

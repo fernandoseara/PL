@@ -1,3 +1,6 @@
+Estado 33 conflictos: 1 desplazamiento/reducción
+
+
 Gramática
 
     0 $accept: S $end
@@ -37,7 +40,7 @@ Gramática
    22 nature: NATURE EOL
    23       | ε
 
-   24 attacks: attacks ATTACK EOL
+   24 attacks: attacks ATTACK eol
    25        | ε
 
    26 object: ARROBA OBJECT EOL
@@ -54,7 +57,7 @@ Terminales con las reglas donde aparecen
 
     $end (0) 0
     error (256)
-    EOL <valString> (258) 3 7 9 22 24 26 28 30
+    EOL <valString> (258) 3 7 9 22 26 28 30
     ARROBA <valString> (259) 26
     POKEMON <valString> (260) 5
     OBJECT <valString> (261) 26
@@ -123,7 +126,7 @@ No terminales con las reglas donde aparecen
         on right: 2
     eol (35)
         on left: 30 31
-        on right: 5
+        on right: 5 24
 
 
 Estado 0
@@ -359,7 +362,7 @@ Estado 23
 Estado 24
 
     2 pokemon: pokemon name object ability shiny spread nature • attacks
-   24 attacks: • attacks ATTACK EOL
+   24 attacks: • attacks ATTACK eol
    25        | ε •
 
     $default  reduce usando la regla 25 (attacks)
@@ -404,7 +407,7 @@ Estado 28
 Estado 29
 
     2 pokemon: pokemon name object ability shiny spread nature attacks •  [$end, EOL, ARROBA, POKEMON, ABILITY, SHINY, EVS]
-   24 attacks: attacks • ATTACK EOL
+   24 attacks: attacks • ATTACK eol
 
     ATTACK  desplazar e ir al estado 33
 
@@ -440,9 +443,33 @@ Estado 32
 
 Estado 33
 
-   24 attacks: attacks ATTACK • EOL
+   24 attacks: attacks ATTACK • eol
+   30 eol: • EOL
+   31    | ε •  [$end, EOL, ARROBA, POKEMON, ABILITY, SHINY, EVS, ATTACK]
 
-    EOL  desplazar e ir al estado 37
+    EOL  desplazar e ir al estado 7
+
+    EOL       [reduce usando la regla 31 (eol)]
+    $default  reduce usando la regla 31 (eol)
+
+    eol  ir al estado 37
+
+    shift/reduce conflict on token EOL:
+       31 eol: ε •
+       30 eol: • EOL
+      Example: pokemon name object ability shiny spread nature attacks ATTACK • EOL
+      Shift derivation
+        pokemon
+        ↳ 2: pokemon name object ability shiny spread nature attacks
+                                                             ↳ 24: attacks ATTACK eol
+                                                                                  ↳ 30: • EOL
+      Reduce derivation
+        pokemon
+        ↳ 3: pokemon                                                                             EOL
+             ↳ 2: pokemon name object ability shiny spread nature attacks
+                                                                  ↳ 24: attacks ATTACK eol
+                                                                                       ↳ 31: ε •
+
 
 
 Estado 34
@@ -474,7 +501,7 @@ Estado 36
 
 Estado 37
 
-   24 attacks: attacks ATTACK EOL •
+   24 attacks: attacks ATTACK eol •
 
     $default  reduce usando la regla 24 (attacks)
 

@@ -1,8 +1,0 @@
-Lapras @ Light Clay
-Ability: Water Absorb
-EVs: 140 HP / 0 Atk / 92 Def / 252 SpA / 0 SpD / 24 Spe
-Modest Nature
-- Hydro Pump
-- Protect
-- Thunder
-- Freeze-Dry

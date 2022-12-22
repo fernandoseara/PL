@@ -96,7 +96,7 @@ nature
 	: NATURE EOL
 	| {yyerror("Se debe especificar la naturaleza del pokemon");}
 attacks
-	: attacks ATTACK EOL {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon+1);
+	: attacks ATTACK eol {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon+1);
 					yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}
 					if(!checkRepeated(namesAttacks, $2)){yyerror("Un pokemon no puede tener dos veces el mismo ataque"); exit(0);}}
 	|

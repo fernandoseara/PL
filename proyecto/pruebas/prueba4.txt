@@ -1,0 +1,55 @@
+Kyogre @ Assault Vest  
+Ability: Drizzle  
+EVs: 204 HP / 0 Atk / 60 Def / 156 SpA / 12 SpD / 76 Spe  
+Modest Nature  
+- Thunder  
+- Water Spout  
+- Hyper Beam  
+- Origin Pulse  
+
+Zapdos @ Safety Goggles  
+Ability: Static    
+Shiny: Yes  
+EVs: 156 HP / 0 Atk / 4 Def / 116 SpA / 4 SpD / 228 Spe  
+Modest Nature  
+- Hurricane  
+- Thunderbolt  
+- Eerie Impulse  
+- Roost  
+
+Incineroar @ Shuca Berry  
+Ability: Intimidate    
+EVs: 244 HP / 4 Atk / 76 Def / 0 SpA / 140 SpD / 44 Spe  
+Impish Nature  
+- Flare Blitz  
+- Parting Shot  
+- Fake Out  
+- Throat Chop  
+
+Grimmsnarl @ Light Clay  
+Ability: Prankster  
+EVs: 252 HP / 4 Atk / 92 Def / 0 SpA / 132 SpD / 28 Spe  
+Careful Nature  
+- Spirit Break  
+- Reflect  
+- Light Screen  
+- Thunder Wave  
+
+Zacian-Crowned @ Rusted Sword  
+Ability: Intrepid Sword  
+EVs: 212 HP / 76 Atk / 4 Def / 0 SpA / 44 SpD / 172 Spe  
+Adamant Nature  
+- Behemoth Blade  
+- Sacred Sword  
+- Swords Dance  
+- Protect  
+
+Rillaboom @ Miracle Seed  
+Ability: Grassy Surge  
+EVs: 204 HP / 188 Atk / 52 Def / 4 SpA / 60 SpD / 0 Spe 
+Brave Nature   
+- Grassy Glide  
+- Wood Hammer  
+- U-turn  
+- Fake Out  
+

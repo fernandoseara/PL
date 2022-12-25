@@ -16,7 +16,7 @@ pokemon "Incineroar"|"Ferrothorn"|"Metagross"|"Lapras"|"Regieleki"|"Urshifu"|"Ra
 
 object "Light Clay"|"Magnet"|"Weakness Policy"|"Choice Band"|"Leftovers"|"Sitrus Berry"|"Focus Sash"|"Safety Goggles"|"Assault Vest"|"Rocky Helmet"|"Shuca Berry"|"Life Orb"|"Choice Scarf"|"Choice Specs"|"Lum Berry"|"Miracle Seed"|"Rusted Sword"|"Eviolite"|"White Herb"|"Laggin Tail"
 
-arroba " @ "
+arroba "@"
 
 abilityName "Water Absorb"|"Transistor"|"Clear Body"|"Unseen Fist"|"Iron Barbs"|"Intimidate"|"Lightning Rod"|"Misty Surge"|"Beast Boost"|"Grassy Surge"|"Intrepid Sword"|"Sturdy"|"Drizzle"|"Prankster"|"Static"|"Steam Engine"|"Flame Body"|"Flash Fire"|"Drought"|"Solar Power"|"Blaze"|"Storm Drain"|"Sticky Hold"|"Sand Force"|"Infiltrator"|"Chlorophyll"|"Justified"|"Overgrow"|"Sand Veil"|"Rough Skin"|"Moxie"|"Sand Stream"|"Sand Rush"|"Mold Breaker"|"Effect Spore"|"Regenerator"|"Cute Charm"|"Pixilate"|"Inner Focus"|"Synchronize"|"Steadfast"|"Levitate"|"Multiscale"|"Swarm"|"Rain Dish"|"Cursed Body"|"Gale Wings"
 
@@ -25,7 +25,7 @@ ability "Ability: "{abilityName}
 shinyFlag "Yes"|"No"
 shiny "Shiny: "{shinyFlag}
 
-division " / "
+division "/"
 
 hp [0-9]+" HP" 
 atk [0-9]+" Atk"
@@ -45,12 +45,12 @@ attack "\- "{attackName}
 
 %%
 {ste} {;}
-{pokemon} {printf("a %s\n", yytext); yylval.valString = strdup(yytext); return POKEMON;}
-{arroba} { printf("b %s\n", yytext); yylval.valString = strdup(yytext); return ARROBA;}
-{object} {printf("c %s\n", yytext); yylval.valString = strdup(yytext); return OBJECT;}
-{ability} {printf("d %s\n", yytext); yylval.valString = strdup(yytext); return ABILITY;}
+{pokemon} {yylval.valString = strdup(yytext); return POKEMON;}
+{arroba} {yylval.valString = strdup(yytext); return ARROBA;}
+{object} {yylval.valString = strdup(yytext); return OBJECT;}
+{ability} {yylval.valString = strdup(yytext); return ABILITY;}
 {shiny} {yylval.valString = strdup(yytext); return SHINY;}
-{evs} {printf("e %s\n", yytext); yylval.valString = strdup(yytext); return EVS;}
+{evs} {yylval.valString = strdup(yytext); return EVS;}
 {division} {yylval.valString = strdup(yytext); return DIVISION;}
 {hp} {yylval.valString = strdup(yytext); return HP;}
 {atk} {yylval.valString = strdup(yytext); return ATK;}
@@ -58,9 +58,9 @@ attack "\- "{attackName}
 {spa} {yylval.valString = strdup(yytext); return SPA;}
 {spd} {yylval.valString = strdup(yytext); return SPD;}
 {spe} {yylval.valString = strdup(yytext); return SPE;}
-{nature} {printf("f %s\n", yytext); yylval.valString = strdup(yytext); return NATURE;}
-{attack} {printf("g %s\n", yytext); yylval.valString = strdup(yytext); return ATTACK;}
-{eol} {printf("h %s\n", yytext); yylval.valString = strdup(yytext); return EOL;}
-. {printf("no se reconce la expresion: %s\n", yytext);yyerror("Error lexico"); exit(0);}
+{nature} {yylval.valString = strdup(yytext); return NATURE;}
+{attack} {yylval.valString = strdup(yytext+2); return ATTACK;}
+{eol} {yylval.valString = strdup(yytext); return EOL;}
+. {printf("no se reconce la expresion: %s\n", yytext);yyerror("Error lexico");}
 
 %%

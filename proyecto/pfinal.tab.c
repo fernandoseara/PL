@@ -78,7 +78,7 @@ extern int yylex();
 extern int yylineno;
 
 void yyerror (char const *);
-bool checkRepeated (char *array[], char *newName);
+bool checkRepeated (char *array[], char *newName, int flag);
 void resetArray (char *array[]);
 void resetIntArray (int array[]);
 void checkEVs(char *ev, int array[], int flag);
@@ -545,10 +545,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    52,    52,    55,    56,    58,    61,    63,    65,    66,
-      69,    72,    73,    76,    77,    80,    81,    84,    85,    88,
-      89,    92,    93,    96,    97,    99,   102,   105,   106,   109,
-     110,   113,   114
+       0,    52,    52,    55,    56,    58,    61,    64,    66,    67,
+      70,    73,    74,    77,    78,    81,    82,    85,    86,    89,
+      90,    93,    94,    97,    98,   100,   103,   106,   107,   110,
+     111,   114,   115
 };
 #endif
 
@@ -1135,130 +1135,131 @@ yyreduce:
     {
   case 2: /* S: pokemon  */
 #line 52 "pfinal.y"
-                  {if(countPokemon == 0){yyerror("Debe haber como minimo un pokemon en el equipo");exit(0);} else {printf("El equipo esta bien formado\n");}}
+                  {if(countPokemon == 0){yyerror("Debe haber como minimo un pokemon en el equipo");} else {printf("Su equipo esta formado por %d pokemon, los datos en cada uno de ellos son correctos\n", countPokemon);}}
 #line 1140 "pfinal.tab.c"
     break;
 
   case 4: /* pokemon: pokemon EOL  */
 #line 56 "pfinal.y"
-                      {if(countAttacks == 0){yyerror("El pokemon debe tener como minimo un ataque");exit(0);}
+                      {if(countAttacks == 0){printf("El pokemon %d no tiene ataques\n", countPokemon);yyerror("Todos los pokemon deben tener como minimo un ataque");}
 															countAttacks = 0;resetArray(namesAttacks); resetIntArray(evs);}
 #line 1147 "pfinal.tab.c"
     break;
 
   case 6: /* name: POKEMON eol  */
 #line 61 "pfinal.y"
-                      {if(!checkRepeated(namesPokemon, (yyvsp[-1].valString))){yyerror("No esta permitido llevar dos pokemon iguales en un equipo"); exit(0);}
-				countPokemon++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6"); exit(0);}}
-#line 1154 "pfinal.tab.c"
+                      {countPokemon++; if(countPokemon > 6){yyerror("El numero de pokemon no puede ser superior a 6");}
+				if(!checkRepeated(namesPokemon, (yyvsp[-1].valString), 0)){yyerror("No esta permitido llevar dos pokemon iguales en un equipo");}
+				}
+#line 1155 "pfinal.tab.c"
     break;
 
   case 7: /* name: %empty  */
-#line 63 "pfinal.y"
-          {yyerror("el nombre del pokemon no puede estar vacio"); exit(0);}
-#line 1160 "pfinal.tab.c"
+#line 64 "pfinal.y"
+          {yyerror("El nombre del pokemon no puede estar vacio");}
+#line 1161 "pfinal.tab.c"
     break;
 
   case 9: /* ability: %empty  */
-#line 66 "pfinal.y"
-          {yyerror("Se debe especificar la habilidad del pokemon");}
-#line 1166 "pfinal.tab.c"
+#line 67 "pfinal.y"
+          {printf("El pokemon %d no tiene habilidad\n", countPokemon);yyerror("Se debe especificar la habilidad de todos los pokemon");}
+#line 1167 "pfinal.tab.c"
     break;
 
   case 11: /* hp: HP DIVISION  */
-#line 72 "pfinal.y"
+#line 73 "pfinal.y"
                   {checkEVs((yyvsp[-1].valString), evs, 0);}
-#line 1172 "pfinal.tab.c"
+#line 1173 "pfinal.tab.c"
     break;
 
   case 12: /* hp: %empty  */
-#line 73 "pfinal.y"
-      {yyerror("Faltan los EVs en HP");exit(0);}
-#line 1178 "pfinal.tab.c"
+#line 74 "pfinal.y"
+      {printf("Faltan los EVs en HP en el pokemon %d\n", countPokemon);yyerror("Se deben especificar los EVs en todas las caracteristicas");}
+#line 1179 "pfinal.tab.c"
     break;
 
   case 13: /* atk: ATK DIVISION  */
-#line 76 "pfinal.y"
+#line 77 "pfinal.y"
                    {checkEVs((yyvsp[-1].valString), evs, 1);}
-#line 1184 "pfinal.tab.c"
+#line 1185 "pfinal.tab.c"
     break;
 
   case 14: /* atk: %empty  */
-#line 77 "pfinal.y"
-      {yyerror("Faltan los EVs en Atk");exit(0);}
-#line 1190 "pfinal.tab.c"
+#line 78 "pfinal.y"
+      {printf("Faltan los EVs en Atk en el pokemon %d\n", countPokemon);yyerror("Se deben especificar los EVs en todas las caracteristicas");}
+#line 1191 "pfinal.tab.c"
     break;
 
   case 15: /* def: DEF DIVISION  */
-#line 80 "pfinal.y"
+#line 81 "pfinal.y"
                    {checkEVs((yyvsp[-1].valString), evs, 2);}
-#line 1196 "pfinal.tab.c"
+#line 1197 "pfinal.tab.c"
     break;
 
   case 16: /* def: %empty  */
-#line 81 "pfinal.y"
-      {yyerror("Faltan los EVs en Def");exit(0);}
-#line 1202 "pfinal.tab.c"
+#line 82 "pfinal.y"
+      {printf("Faltan los EVs en Def en el pokemon %d\n", countPokemon);yyerror("Se deben especificar los EVs en todas las caracteristicas");}
+#line 1203 "pfinal.tab.c"
     break;
 
   case 17: /* spa: SPA DIVISION  */
-#line 84 "pfinal.y"
+#line 85 "pfinal.y"
                    {checkEVs((yyvsp[-1].valString), evs, 3);}
-#line 1208 "pfinal.tab.c"
+#line 1209 "pfinal.tab.c"
     break;
 
   case 18: /* spa: %empty  */
-#line 85 "pfinal.y"
-      {yyerror("Faltan los EVs en SpA");exit(0);}
-#line 1214 "pfinal.tab.c"
+#line 86 "pfinal.y"
+      {printf("Faltan los EVs en SpA en el pokemon %d\n", countPokemon);yyerror("Se deben especificar los EVs en todas las caracteristicas");}
+#line 1215 "pfinal.tab.c"
     break;
 
   case 19: /* spd: SPD DIVISION  */
-#line 88 "pfinal.y"
+#line 89 "pfinal.y"
                    {checkEVs((yyvsp[-1].valString), evs, 4);}
-#line 1220 "pfinal.tab.c"
+#line 1221 "pfinal.tab.c"
     break;
 
   case 20: /* spd: %empty  */
-#line 89 "pfinal.y"
-      {yyerror("Faltan los EVs en SpD");exit(0);}
-#line 1226 "pfinal.tab.c"
+#line 90 "pfinal.y"
+      {printf("Faltan los EVs en SpD en el pokemon %d\n", countPokemon);yyerror("Se deben especificar los EVs en todas las caracteristicas");}
+#line 1227 "pfinal.tab.c"
     break;
 
   case 21: /* spe: SPE  */
-#line 92 "pfinal.y"
+#line 93 "pfinal.y"
           {checkEVs((yyvsp[0].valString), evs, 5);}
-#line 1232 "pfinal.tab.c"
+#line 1233 "pfinal.tab.c"
     break;
 
   case 22: /* spe: %empty  */
-#line 93 "pfinal.y"
-      {yyerror("Faltan los EVs en Spe");exit(0);}
-#line 1238 "pfinal.tab.c"
+#line 94 "pfinal.y"
+      {printf("Faltan los EVs en Spe en el pokemon %d\n", countPokemon);yyerror("Se deben especificar los EVs en todas las caracteristicas");}
+#line 1239 "pfinal.tab.c"
     break;
 
   case 24: /* nature: %empty  */
-#line 97 "pfinal.y"
+#line 98 "pfinal.y"
           {yyerror("Se debe especificar la naturaleza del pokemon");}
-#line 1244 "pfinal.tab.c"
+#line 1245 "pfinal.tab.c"
     break;
 
   case 25: /* attacks: attacks ATTACK eol  */
-#line 99 "pfinal.y"
-                             {countAttacks++; if(countAttacks > 4){printf("el pokemon numero %d tiene un numero invalido de ataques\n", countPokemon+1);
-					yyerror("El numero de ataques no puede ser superior a 4"); exit(0);}
-					if(!checkRepeated(namesAttacks, (yyvsp[-1].valString))){yyerror("Un pokemon no puede tener dos veces el mismo ataque"); exit(0);}}
-#line 1252 "pfinal.tab.c"
+#line 100 "pfinal.y"
+                             {countAttacks++; if(countAttacks > 4){printf("El pokemon numero %d tiene un numero invalido de ataques\n", countPokemon);
+					yyerror("El numero de ataques no puede ser superior a 4");}
+					if(!checkRepeated(namesAttacks, (yyvsp[-1].valString), 1)){yyerror("Un pokemon no puede tener dos veces el mismo ataque");}}
+#line 1253 "pfinal.tab.c"
     break;
 
   case 27: /* object: ARROBA OBJECT EOL  */
-#line 105 "pfinal.y"
-                            {;if(!checkRepeated(namesObjects, (yyvsp[-1].valString))){yyerror("No esta permitido llevar dos objetos iguales en un equipo"); exit(0);}}
-#line 1258 "pfinal.tab.c"
+#line 106 "pfinal.y"
+                            {;if(!checkRepeated(namesObjects, (yyvsp[-1].valString), 0)){yyerror("No esta permitido llevar dos objetos iguales en un equipo");}}
+#line 1259 "pfinal.tab.c"
     break;
 
 
-#line 1262 "pfinal.tab.c"
+#line 1263 "pfinal.tab.c"
 
       default: break;
     }
@@ -1451,7 +1452,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 118 "pfinal.y"
+#line 119 "pfinal.y"
 
 int main(int argc, char *argv[]) {
 extern FILE *yyin;
@@ -1474,13 +1475,18 @@ extern FILE *yyin;
 
 	return 0;
 }
-void yyerror (char const *message) { fprintf (stderr, "Linea %d: %s \n", yylineno, message);}
+void yyerror (char const *message) { fprintf (stderr, "Error linea %d: %s \n", yylineno, message);exit(0);}
 
-bool checkRepeated (char *array[], char *newName) {
+bool checkRepeated (char *array[], char *newName, int flag) {
 	int i = 0;
 	while (array[i] != NULL){
 		if(strcmp(array[i], newName) == 0){
-			printf("%s y %s estan repetidos\n", array[i], newName);
+			if(flag == 0){
+				printf("En los pokemon %d y %d se repite: %s\n", i+1, countPokemon, newName);
+			}else{
+				printf("En el pokemon %d se repite el ataque: %s\n", countPokemon, newName);
+			}
+			
 			return false;
 		}
 		i++;
@@ -1505,41 +1511,48 @@ void resetIntArray (int array[]){
 }
 
 void checkEVs(char *ev, int array[], int flag){
-    int number = atoi(strtok(ev, " ")); 
-    if(number > 252){
-        yyerror("El numero mamximo de EVs en una caracteristica es 252");
-        exit(0);
-    }
+    int number = atoi(strtok(ev, " "));
+	char *caracteristica; 
     switch(flag){
         case 0:
             evs[0] = number;
+			caracteristica = "HP";
         break;
         case 1:
             evs[1] = number;
+			caracteristica = "Atk";
         break;
         case 2:
             evs[2] = number;
+			caracteristica = "Def";
         break;
         case 3:
             evs[3] = number;
+			caracteristica = "SpA";
         break;
         case 4:
             evs[4] = number;
+			caracteristica = "SpD";
         break;
         case 5:
             evs[5] = number;
+			caracteristica = "Spe";
         break;
         default:
          printf("Invalid flag on function checkEVs\n");
          exit(-1);
         break;
     }
+	if(number > 252){
+		printf("Los EVs del pokemon %d en %s son %d\n", countPokemon, caracteristica, number);
+        yyerror("El numero mamximo de EVs en una caracteristica es 252");
+    }
     int totalEVs = 0;
     for(int i = 0; i < 6; i++){
         totalEVs += evs[i];
     }
     if(totalEVs > 510){
+		printf("La suma total de los evs del pokemon %d es de %d\n", countPokemon, totalEVs);
         yyerror("Los EVs totales no pueden superar 510");
-        exit(0);
     }
 }

@@ -4,7 +4,7 @@ EVs: 204 HP / 0 Atk / 60 Def / 156 SpA / 12 SpD / 76 Spe
 Modest Nature  
 - Thunder          
 - Water Spout  
-- Hyper Beam  
+- Origin Pulse  
 - Origin Pulse  
 
 Zapdos @ Safety Goggles  
@@ -19,7 +19,7 @@ Modest Nature
 
 Incineroar @ Shuca Berry  
 Ability: Intimidate    
-EVs: 244 HP /4 Atk / 76 Def / 0 SpA / 140 SpD / 44 Spe  
+EVs: 244 HP / 4 Atk / 76 Def / 0 SpA / 140 SpD / 44 Spe  
 Impish Nature  
 - Flare Blitz  
 - Parting Shot  

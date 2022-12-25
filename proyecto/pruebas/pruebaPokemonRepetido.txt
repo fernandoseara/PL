@@ -7,7 +7,7 @@ Modest Nature
 - Hyper Beam  
 - Origin Pulse  
 
-Zapdos @ Safety Goggles  
+Kyogre @ Safety Goggles  
 Ability: Static    
 Shiny: Yes  
 EVs: 156 HP / 0 Atk / 4 Def / 116 SpA / 4 SpD / 228 Spe  
@@ -19,7 +19,7 @@ Modest Nature
 
 Incineroar @ Shuca Berry  
 Ability: Intimidate    
-EVs: 244 HP /4 Atk / 76 Def / 0 SpA / 140 SpD / 44 Spe  
+EVs: 244 HP / 4 Atk / 76 Def / 0 SpA / 140 SpD / 44 Spe  
 Impish Nature  
 - Flare Blitz  
 - Parting Shot  

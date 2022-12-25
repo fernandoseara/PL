@@ -1,0 +1,46 @@
+Esta practica ha sido realizada por Xan Limia García Y Fernando Seara Romera.
+
+Hemos construido un analizador sintactico del formato que utiliza la web https://play.pokemonshowdown.com/ para formar equipos pokemon.
+Los equipos deben estar formados como mínimo por un pokemon y como máximo 6. El analizador leera un fichero txt que contenga el respectivo equipo e informara
+al usuario. Si el equipo esta correctamente formado imprimira en el terminal un mensaje de aceptacion junto con el numero de pokemon que conforman el equipo. En 
+caso contrario este especificará en que línea se ha cometido un error e indicará la causa del mismo.
+
+Un pokemon debe presentar el siguiente formato:
+
+Incineroar @ Shuca Berry  
+Ability: Intimidate
+Shiny: Yes    
+EVs: 244 HP / 4 Atk / 76 Def / 0 SpA / 140 SpD / 44 Spe  
+Impish Nature  
+- Flare Blitz  
+- Parting Shot  
+- Fake Out  
+- Throat Chop 
+
+La primera palabra en este caso "Incineroar" es el nombre del pokemon que es obligatorio en cualquier caso. A continuacion, y separado minimo por un espacio debe ir el caracter
+"@" en caso que se quiera indicar que el pokemon va a llevar equipado un objeto. Y a continuacion el nombre del objeto.
+
+La siguiente linea es la habilidad y esta si resulta ser oblicatoria en cualquier caso.
+
+Despues de esta hay una opcion denomidada Shiny que puede aparecer o no
+
+A continiacion viene la linea de EVs, que son puntos que se atribuyen a las 6 caracteristicas disponibles (hp, atk, def, spa, spd, spe). Aunque la cantidad de puntos
+sea 0 se debe especificar de todas formas y siempre en el orden que sigue el ejemplo, seperando las caracteristicas por el caracter "/", entre el numero y el nombre de la
+caaracteristica es obligatorio que haya un unico espacio mientras que los espacios que separan las / no son estrictamente obligatorios.
+Dichos numeros no pueden superar en ningun caso 252 siendo este el numero maximo de puntos asignables en una caracteristica. A su vez la suma total de todos los puntos no puede
+superar 510.
+
+A countinuacion de los EVs viene la naturaleza que tambien es de presencia obligatoria y con el formato del ejemplo
+
+Por ultimo vienen los ataques. Estos deben comenzar con el caracter "-" y dejando 1 espacio el nombre del ataque. El numero minimo de ataques es 1 y el maximo 4. El mismo
+pokemon no puede repetir ataques.
+
+En cuanto a las reglas para comformar al equipo son mas sencillas, como ya comentamos el numero minimo de pokemon es 1 y el maximo 6. No se pueden repetir nombres de pokemon
+ni tampoco objetos.
+
+En caso de cualquiera de estas reglas se inclumpla se especificara en el error que se muestra en pantalla y en que linea se ha incmplido.
+
+Para separar los pokemon de un equipo se hara con saltos de linea, pero nunca mas de 2 saltos de linea consecutivos.
+
+En el fichero pfinal.l se han definido las reglas lexicas, si algun pokemon, objeto, ataque o habilidad no esta definido en esta reglas saltara un error lexico.
+En el fichero pfinal.y se han creado las reglas gramaticales con las que se controlaran todos los erroes que se han especificado anteriormente.
